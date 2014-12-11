@@ -4,7 +4,8 @@ module PuppetBundler
   def PuppetBundler.parse(metadata)
 
     f = File.read(metadata)
-    #modulepath = ENV['MODULEPATH']
+    modulepath = ENV['MODULEPATH']
+    modulepath = "--modulepath #{modulepath}" unless modulepath.nil?
 
     begin
       parsed = JSON.parse(f)
@@ -16,7 +17,7 @@ module PuppetBundler
     deps.each do |dep|
       name = dep['name']
       vers = dep['version_requirement']
-      out = %x( puppet module install -v '#{vers}' #{name} )
+      out = %x( puppet module install #{modulepath} -v '#{vers}' #{name} )
       out.lines.each do |line|
         puts line unless line =~ /Notice:/
       end
