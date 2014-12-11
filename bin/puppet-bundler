@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+
+lib = File.expand_path('../../lib', __FILE__)
+$:.unshift(lib) unless $:.include?(lib)
+
+require "json"
+require "puppet_bundler"
+
+if ARGV[0].nil?
+  abort("Error: Must provide a metadata.json file to install deps from")
+end
+
+metadata = ARGV[0]
+
+PuppetBundler.parse(metadata)
