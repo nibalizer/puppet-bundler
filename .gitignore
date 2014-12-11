@@ -2,4 +2,4 @@
 *.swo
 *.gem
 Gemfile.lock
-example_modulepath
+examples_modulepath
